@@ -18,10 +18,10 @@ function addNewTask() {
         taskList.appendChild(taskItem);
 
         userPendingTasks.push(value);
-        localStorage.setItem('tasks', JSON.stringify(userPendingTasks));
+        // localStorage.setItem('tasks', JSON.stringify(userPendingTasks));
 
-        taskItem.setAttribute('draggable', 'true');
-        taskItem.addEventListener('dragstart');
+        // taskItem.setAttribute('draggable', 'true');
+        // taskItem.addEventListener('dragstart');
 
         let deleteTaskButton = document.createElement('button');
         deleteTaskButton.setAttribute('id', 'delete-task');
@@ -39,3 +39,31 @@ function deleteTask(event) {
 addButton.addEventListener('click', addNewTask);
 
 console.log(taskList);
+
+function loadTasks() {
+    let savedTasks = localStorage.getItem('tasks');
+
+    if (savedTasks) {
+        userPendingTasks = JSON.parse(savedTasks); // Convert string back to array
+
+        userPendingTasks.forEach(taskText => {
+            const taskItem = document.createElement('li');
+            taskItem.textContent = taskText;
+            taskList.appendChild(taskItem);
+
+            taskItem.setAttribute('draggable', 'true');
+            taskItem.addEventListener('dragstart');
+
+            let deleteTaskButton = document.createElement('button');
+            deleteTaskButton.setAttribute('id', 'delete-task');
+            deleteTaskButton.innerText = 'Remove';
+            taskItem.appendChild(deleteTaskButton);
+            deleteTaskButton.addEventListener('click', deleteTask);
+        });
+    }
+}
+
+// Run this function when the page loads
+document.addEventListener('DOMContentLoaded', loadTasks);
+
+loadTasks();
