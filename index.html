@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="./src/style.css">
     <script src="./src/script.js" type="module" defer></script>
     <title>SBA 316: The Document Object Model</title>
 </head>
@@ -14,13 +14,13 @@
         To Do List
     </h1>
     <form id="add-task-here">
-        <input type="text" class="input" id="entered-task">
-        <button type="button" class="button" id="add">
+        <input type="text" class="input" id="entered-task" maxlength="75" autocomplete="off" aria-label="Enter a task" required>
+        <button type="button" class="button" id="add" aria-label="Add Task">
             Add Task
-        </button>
+        </button>     
     </form>
-    <div class="box" id="taskList">
-    </div>
+    <ul class="box" id="taskList">
+    </ul>
 </body>
 
 </html>
