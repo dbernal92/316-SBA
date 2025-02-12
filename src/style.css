@@ -1,6 +1,11 @@
-/* Import a Google Font */
+/* ========== IMPORT FONTS ========== */
+
+/* Import a Google Font for better typography */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+/* ========== GENERAL STYLES ========== */
+
+/* Apply a clean, modern font and set up a centered layout */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f7f7f7;
@@ -14,11 +19,14 @@ body {
     height: 100vh;
 }
 
+/* Styling for the main heading */
 h1 {
     color: #333;
 }
 
-/* Style the form */
+/* ========== FORM STYLING ========== */
+
+/* Style the form container */
 form {
     background: white;
     padding: 15px;
@@ -28,7 +36,7 @@ form {
     gap: 10px;
 }
 
-/* Style the input field */
+/* Style the task input field */
 .input {
     padding: 10px;
     border: 1px solid #ccc;
@@ -37,6 +45,9 @@ form {
     font-size: 16px;
 }
 
+/* ========== BUTTON STYLES ========== */
+
+/* Default button styling */
 .button {
     background-color: #5a67d8;
     color: white;
@@ -48,11 +59,14 @@ form {
     transition: 0.3s;
 }
 
+/* Change button color on hover */
 .button:hover {
     background-color: #434190;
 }
 
-/* Style the task list */
+/* ========== TASK LIST STYLES ========== */
+
+/* Style the task list container */
 #taskList {
     list-style-type: none;
     padding: 0;
@@ -61,6 +75,7 @@ form {
     text-align: left;
 }
 
+/* Style each task item */
 #taskList li {
     background: white;
     padding: 10px;
@@ -70,7 +85,10 @@ form {
     align-items: center;
     margin-bottom: 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s, box-shadow 0.3s;
 }
+
+/* ========== DELETE BUTTON STYLES ========== */
 
 /* Style the delete button */
 .delete-task {
@@ -83,9 +101,12 @@ form {
     font-weight: bold;
 }
 
+/* Darken delete button on hover */
 .delete-task:hover {
     background-color: #c53030;
 }
+
+/* ========== DARK MODE STYLES ========== */
 
 /* Default Light Mode */
 body {
@@ -95,13 +116,22 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/* Dark Mode */
+/* Dark Mode Background & Text */
 body.dark-mode {
     background-color: #1e1e1e; /* Softer dark background */
     color: #e0e0e0; /* Light grey text instead of harsh white */
 }
 
-/* Input & Button Styling */
+/* Dark Mode Task List */
+body.dark-mode #taskList li {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1); /* Lighter shadow for contrast */
+}
+
+/* ========== INPUT & BUTTON DARK MODE ========== */
+
+/* Default input and button styles */
 input, button {
     background-color: #fff;
     color: #222;
@@ -112,7 +142,7 @@ input, button {
     transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
-/* Dark Mode for Inputs & Buttons */
+/* Dark mode styling for input fields and buttons */
 body.dark-mode input, 
 body.dark-mode button {
     background-color: #2a2a2a; /* Softer dark */
@@ -120,23 +150,9 @@ body.dark-mode button {
     border: 1px solid #555;
 }
 
-/* Task List Styling */
-#taskList li {
-    background: #fff;
-    color: #222;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    transition: background 0.3s, color 0.3s;
-}
+/* ========== DARK MODE TOGGLE BUTTON ========== */
 
-/* Dark Mode Task List */
-body.dark-mode #taskList li {
-    background: #2a2a2a;
-    color: #e0e0e0;
-}
-
-/* Dark Mode Toggle Button */
+/* Positioning and styling for the dark mode toggle */
 #dark-mode-toggle {
     background-color: #444;
     color: white;
@@ -149,12 +165,17 @@ body.dark-mode #taskList li {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    transition: background 0.3s;
 }
 
+/* Change dark mode button on hover */
 #dark-mode-toggle:hover {
     background-color: #666;
 }
 
+/* ========== EDIT TASK INPUT FIELD ========== */
+
+/* Style for inline editing input */
 .edit-input {
     width: 100%;
     font-size: 16px;
