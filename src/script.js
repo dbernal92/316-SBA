@@ -17,6 +17,12 @@ function addNewTask() {
         taskItem.textContent = value;
         taskList.appendChild(taskItem);
 
+        userPendingTasks.push(value);
+        localStorage.setItem('tasks', JSON.stringify(userPendingTasks));
+
+        taskItem.setAttribute('draggable', 'true');
+        taskItem.addEventListener('dragstart');
+
         let deleteTaskButton = document.createElement('button');
         deleteTaskButton.setAttribute('id', 'delete-task');
         deleteTaskButton.innerText = 'Remove';
