@@ -34,7 +34,6 @@ const addButton = document.getElementById('add');
 // Container for task items
 const taskList = document.querySelector('#taskList');
 
-
 // Debugging to check button
 console.log(addButton);
 
@@ -59,16 +58,19 @@ function addNewTask() {
         const taskItem = document.createElement('li');
         taskItem.textContent = value;
 
+        // Add click event to enable editing
+        taskItem.addEventListener('click', enableEditTask);
+
         // Add to task list in UI
         taskList.appendChild(taskItem);
 
         // Save task in array and update localStorage
         userPendingTasks.push(value);
-        localStorage.setItem('tasks', JSON.stringify(userPendingTasks));
+        localStorage.setItem('tasks', JSON.stringify(userPendingTasks)); // Save to localStorage
 
         // Create delete button for task
         let deleteTaskButton = document.createElement('button');
-        deleteTaskButton.setAttribute('id', 'delete-task');
+        deleteTaskButton.classList.add('delete-task'); // Ensure styling consistency
         deleteTaskButton.innerText = '-';
         taskItem.appendChild(deleteTaskButton);
         deleteTaskButton.addEventListener('click', deleteTask);
@@ -77,6 +79,7 @@ function addNewTask() {
     // Clear input field
     taskAddSpace.reset();
 }
+
 
 // Delete task from the UI and localStorage
 function deleteTask(event) {
@@ -96,6 +99,61 @@ function deleteTask(event) {
     taskElement.remove();
 }
 
+function enableEditTask(event) {
+    let taskItem = event.target;
+
+    // Prevent editing if clicking the delete button
+    if (taskItem.tagName === 'BUTTON') return;
+
+    // Store the delete button before replacing the content
+    let deleteTaskButton = taskItem.querySelector('.delete-task');
+
+    // Create an input field to replace the task text
+    let inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = taskItem.firstChild.textContent.trim();
+    inputField.classList.add('edit-input');
+
+    // Clear taskItem and add input field only
+    taskItem.innerHTML = '';
+    taskItem.appendChild(inputField);
+    inputField.focus();
+
+    // Save changes when user presses Enter or clicks outside
+    inputField.addEventListener('blur', () => saveEditedTask(taskItem, inputField, deleteTaskButton));
+    inputField.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            saveEditedTask(taskItem, inputField, deleteTaskButton);
+        }
+    });
+}
+
+function saveEditedTask(taskItem, inputField, deleteTaskButton) {
+    let newValue = inputField.value.trim();
+
+    if (newValue.length === 0) {
+        alert("Task cannot be empty!");
+        return;
+    }
+
+    // Update the task text
+    taskItem.innerHTML = newValue;
+
+    // Reattach the original delete button (prevents duplication)
+    taskItem.appendChild(deleteTaskButton);
+
+    // Add back the click event for future edits
+    taskItem.addEventListener('click', enableEditTask);
+
+    // Update localStorage
+    let index = userPendingTasks.indexOf(inputField.value);
+    if (index !== -1) {
+        userPendingTasks[index] = newValue;
+        localStorage.setItem('tasks', JSON.stringify(userPendingTasks));
+    }
+}
+
+
 // Attach event listener to Add Task button
 addButton.addEventListener('click', addNewTask);
 
@@ -105,7 +163,7 @@ console.log(taskList);
 // Load tasks from localStorage on page load
 function loadTasks() {
     let savedTasks = localStorage.getItem('tasks');
-    // // Debugging
+    // Debugging
     console.log("Retrieved tasks from localStorage:", savedTasks);
 
     if (savedTasks) {
@@ -127,9 +185,12 @@ function loadTasks() {
         const taskItem = document.createElement('li');
         taskItem.textContent = taskText;
 
+        // Enable clicking to edit the task
+        taskItem.addEventListener('click', enableEditTask);
+
         // Create delete button for each task
         let deleteTaskButton = document.createElement('button');
-        deleteTaskButton.classList.add('delete-task');
+        deleteTaskButton.classList.add('delete-task'); // Ensure styling consistency
         deleteTaskButton.innerText = '-';
         taskItem.appendChild(deleteTaskButton);
         deleteTaskButton.addEventListener('click', deleteTask);
@@ -138,7 +199,6 @@ function loadTasks() {
     });
 
     taskList.appendChild(fragment);
-
 }
 
 // Run on page load

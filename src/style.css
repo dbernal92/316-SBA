@@ -154,3 +154,11 @@ body.dark-mode #taskList li {
 #dark-mode-toggle:hover {
     background-color: #666;
 }
+
+.edit-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
